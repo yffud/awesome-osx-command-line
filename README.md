@@ -18,6 +18,7 @@ For more terminal shell goodness, please also see this list's sister list [Aweso
 - [Applications](#applications)
     - [App Store](#app-store)
     - [Apple Remote Desktop](#apple-remote-desktop)
+    - [Contacts](#contacts)
     - [iTunes](#itunes)
     - [Mail](#mail)
     - [Safari](#safari)
@@ -133,6 +134,16 @@ sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set v
 find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'
 ```
 
+#### Show Debug Menu
+```bash
+# Enable
+defaults write com.apple.appstore ShowDebugMenu -bool true
+
+# Disable (Default)
+defaults write com.apple.appstore ShowDebugMenu -bool false
+```
+
+
 ### Apple Remote Desktop
 
 #### Remove Apple Remote Desktop Settings
@@ -143,6 +154,17 @@ defaults delete ~/Library/Preferences/com.apple.RemoteDesktop.plist ; \
 sudo rm -r /Library/Application\ Support/Apple/Remote\ Desktop/ ; \
 rm -r ~/Library/Application\ Support/Remote\ Desktop/ ; \
 rm -r ~/Library/Containers/com.apple.RemoteDesktop
+```
+
+### Contacts
+
+#### Debug Mode
+```bash
+# Enable
+defaults write com.apple.addressbook ABShowDebugMenu -bool true
+
+# Disable (Default)
+defaults write com.apple.addressbook ABShowDebugMenu -bool false
 ```
 
 ### iTunes
@@ -157,6 +179,12 @@ launchctl load -w /System/Library/LaunchAgents/com.apple.rcd.plist
 ```
 
 ### Mail
+
+#### Show Attachments as Icons
+
+```bash
+defaults write com.apple.mail DisableInlineAttachmentViewing -bool yes
+```
 
 #### Vacuum Mail Index
 The AppleScript code below will quit Mail, vacuum the SQLite index, then re-open Mail. On a large email database that hasn't been optimized for a while, this can provide significant improvements in responsiveness and speed.
@@ -226,6 +254,16 @@ defaults write com.apple.TextEdit RichText -int 0
 This changes the interval to 30 minutes. The integer value is the time in seconds.
 ```bash
 sudo defaults write /System/Library/Launch Daemons/com.apple.backupd-auto StartInterval -int 1800
+```
+
+#### Local Backups
+Whether Time Machine performs local backups while the Time Machine backup volume is not available.
+```bash
+# Disable
+sudo tmutil disablelocal
+
+# Enable (Default)
+sudo tmutil enablelocal
 ```
 
 #### Prevent Time Machine from Prompting to Use New Hard Drives as Backup Volume
